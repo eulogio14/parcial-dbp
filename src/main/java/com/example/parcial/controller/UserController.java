@@ -1,6 +1,7 @@
 package com.example.parcial.controller;
 
 import com.example.parcial.service.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,4 +13,5 @@ public class UserController {
         this.userService = userService;
     }
 
+    ResponseEntity<Void>
 }
