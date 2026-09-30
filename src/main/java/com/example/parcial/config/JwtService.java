@@ -15,14 +15,12 @@ import java.util.Date;
 @Component
 public class JwtService {
 
-    @Value("${jwt.secret}")
-    private String secret;
+    private static final String SECRET_KEY = "EstaEsUnaBuenaContrasenaParaElParcial123";
 
-    @Value("${jwt.expiration-access}")
-    private Long accessTokenExpiration;
+    private static final Long accessToken = 3600L;
 
     private Key getSigningKey() {
-        return Keys.hmacShaKeyFor(secret.getBytes());
+        return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
     }
 
     public String generateToken(UserDetails userDetails) {
@@ -33,7 +31,7 @@ public class JwtService {
                         userDetails.getAuthorities().stream()
                                 .map(GrantedAuthority::getAuthority).toList())
                 .issuedAt(now)
-                .expiration(new Date(now.getTime() + accessTokenExpiration))
+                .expiration(new Date(now.getTime() + accessToken))
                 .signWith(getSigningKey())
                 .compact();
     }
